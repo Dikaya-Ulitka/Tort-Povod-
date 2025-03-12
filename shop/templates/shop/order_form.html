@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Оформление заказа</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let dateInput = document.getElementById("order-date");
+            if (dateInput) {
+                let today = new Date();
+                today.setDate(today.getDate() + 3); // Устанавливаем минимально доступную дату
+                let minDate = today.toISOString().split("T")[0]; // Формат YYYY-MM-DD
+                dateInput.setAttribute("min", minDate);
+            }
+        });
+    </script>
+</head>
+<body class="container mt-4">
+    <a href="{% url 'product_list' %}" class="btn btn-secondary mb-3">← Вернуться в каталог</a>
+    
+    <h1 class="mb-4 text-center">🛍 Оформление заказа</h1>
+
+    <div class="card shadow-sm p-4 mx-auto" style="max-width: 500px;">
+        <h3 class="mb-3">📌 Данные клиента</h3>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label"><strong>Имя клиента <span class="text-danger">*</span></strong></label>
+                <input type="text" name="customer_name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Телефон <span class="text-danger">*</span></strong></label>
+                <input type="tel" name="phone" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Удобный мессенджер</strong></label>
+                <select name="messenger" class="form-control">
+                    <option value="telegram">Telegram</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="viber">Viber</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Контакт в мессенджере <span class="text-danger">*</span></strong></label>
+                <input type="text" name="messenger_contact" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Дата заказа <span class="text-danger">*</span></strong></label>
+                <input type="date" id="order-date" name="order_date" class="form-control" required>
+                <small class="form-text text-muted">📅 Выберите дату не раньше чем через 3 дня.</small>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Комментарий</strong></label>
+                <textarea name="comment" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'product_list' %}" class="btn btn-secondary">К каталогу</a>
+                <button type="submit" class="btn btn-success">✅ Оформить заказ</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

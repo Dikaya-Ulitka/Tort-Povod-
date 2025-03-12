@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказы</title>
+</head>
+<body>
+    <h1>Список заказов</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Товар</th>
+            <th>Клиент</th>
+            <th>Мессенджер</th>
+            <th>Дата заказа</th>
+            <th>Статус</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.product.name }}</td>
+            <td>{{ order.customer_name }}</td>
+            <td>{{ order.get_messenger_display }}: {{ order.messenger_contact }}</td>
+            <td>{{ order.order_date }}</td>
+            <td>{{ order.get_status_display }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

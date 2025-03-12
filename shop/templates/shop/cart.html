@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Корзина</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+    <a href="{% url 'product_list' %}" class="btn btn-secondary mb-3">← Вернуться в каталог</a>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+    <h1 class="mb-4">🛒 Ваша корзина</h1>
+
+    {% if cart_items %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Количество</th>
+                    <th>Цена за шт.</th>
+                    <th>Общая цена</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" width="80">
+                        <strong>{{ item.product.name }}</strong>
+                    </td>
+                    <td>
+                        <form action="{% url 'cart_update' item.product.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="number" name="quantity" value="{{ item.quantity }}" 
+                                   min="{{ item.product.min_order_quantity }}" class="form-control d-inline w-50">
+                            <button type="submit" class="btn btn-primary btn-sm mt-1">Пересчитать сумму</button>
+                        </form>
+                    </td>
+                    <td>{{ item.product.price|floatformat:2 }} ₽</td>
+                    <td class="total-price">{{ item.quantity }} × {{ item.product.price|floatformat:2 }} ₽ = {{ item.total_price|floatformat:2 }} ₽</td>
+                    <td>
+                        <a href="{% url 'cart_remove' item.product.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3 class="text-end">💰 Итого: <strong id="cart-total">{{ total_price|floatformat:2 }} ₽</strong></h3>
+
+        <div class="text-end">
+            <a href="{% url 'order_create' %}" class="btn btn-success btn-lg">Оформить заказ</a>
+        </div>
+
+    {% else %}
+        <p class="alert alert-warning">Ваша корзина пуста.</p>
+    {% endif %}
+
+</body>
+</html>
