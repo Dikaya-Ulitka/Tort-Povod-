@@ -80,7 +80,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Товар</th>
+                    <th width="45%">Товар</th> 
                     <th>Количество</th>
                     <th>Цена за шт.</th>
                     <th>Общая цена</th>
@@ -90,10 +90,13 @@
             <tbody>
                 {% for item in cart_items %}
                 <tr>
-                    <td>
-                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" width="80">
-                        <strong>{{ item.product.name }}</strong>
-                    </td>
+                    <td width="45%">
+                        <div class="d-flex align-items-center">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" 
+                                 class="img-thumbnail me-2" width="80">
+                            <span class="text-break" style="font-weight: normal;">{{ item.product.name }}</span>
+                        </div>
+                    </td>                    
                     <td>
                         <form action="{% url 'cart_update' item.product.id %}" method="post">
                             {% csrf_token %}
