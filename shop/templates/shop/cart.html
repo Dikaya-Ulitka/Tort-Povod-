@@ -5,17 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Корзина</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fdf1ff;
+        }
+        .container {
+            max-width: 900px;
+        }
+        h1 {
+            color: #feafab;
+            font-weight: bold;
+            text-align: center;
+        }
+        .btn-secondary {
+            background-color: #ffffff;
+            color: #feafab;
+            border: 2px solid #feafab;
+        }
+        .btn-secondary:hover {
+            background-color: #feafab;
+            color: white;
+        }
+        .btn-cart {
+            background-color: #fc9895;
+            color: #fdf1ff;
+            border: none;
+        }
+        .btn-cart:hover {
+            background-color: #e87c79;
+            color: #fdf1ff;
+        }
+        .btn-danger {
+            background-color: #ff6b6b;
+            border: none;
+        }
+        .btn-danger:hover {
+            background-color: #e05252;
+        }
+        .table th {
+            background-color: #feafab;
+            color: white;
+            text-align: center;
+        }
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .cart-summary {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .cart-summary h3 {
+            color: #feafab;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body class="container mt-4">
     <a href="{% url 'product_list' %}" class="btn btn-secondary mb-3">← Вернуться в каталог</a>
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
-        </div>
-    {% endfor %}
-{% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <h1 class="mb-4">🛒 Ваша корзина</h1>
 
@@ -41,8 +98,8 @@
                         <form action="{% url 'cart_update' item.product.id %}" method="post">
                             {% csrf_token %}
                             <input type="number" name="quantity" value="{{ item.quantity }}" 
-                                   min="{{ item.product.min_order_quantity }}" class="form-control d-inline w-50">
-                            <button type="submit" class="btn btn-primary btn-sm mt-1">Пересчитать сумму</button>
+                                   min="{{ item.product.min_order_quantity }}" class="form-control d-inline w-50 text-center">
+                            <button type="submit" class="btn btn-cart btn-sm mt-1">Пересчитать</button>
                         </form>
                     </td>
                     <td>{{ item.product.price|floatformat:2 }} ₽</td>
@@ -55,14 +112,13 @@
             </tbody>
         </table>
 
-        <h3 class="text-end">💰 Итого: <strong id="cart-total">{{ total_price|floatformat:2 }} ₽</strong></h3>
-
-        <div class="text-end">
-            <a href="{% url 'order_create' %}" class="btn btn-success btn-lg">Оформить заказ</a>
+        <div class="cart-summary">
+            <h3>💰 Итого: <strong id="cart-total">{{ total_price|floatformat:2 }} ₽</strong></h3>
+            <a href="{% url 'order_create' %}" class="btn btn-cart btn-lg">✅ Оформить заказ</a>
         </div>
 
     {% else %}
-        <p class="alert alert-warning">Ваша корзина пуста.</p>
+        <p class="alert alert-warning text-center">Ваша корзина пуста.</p>
     {% endif %}
 
 </body>

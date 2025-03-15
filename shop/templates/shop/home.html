@@ -3,22 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>О кондитере</title>
+    <title>Торт Повод – авторские торты и макарон</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fdf1ff;
+        }
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #ffebe0;
+            border-radius: 10px;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #feafab;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: #feafab;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #fc9895;
+        }
+        .features {
+            margin-top: 50px;
+        }
+        .features .card {
+            border: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .contact {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #ffe6d4;
+            border-radius: 10px;
+        }
+        .contact h2 {
+            color: #feafab;
+        }
+    </style>
 </head>
 <body class="container mt-4">
-    <h1 class="mb-3">Добро пожаловать в кондитерскую!</h1>
 
-    <div class="row">
-        <div class="col-md-6">
-            <img src="https://via.placeholder.com/500" class="img-fluid" alt="Кондитер">
+    <div class="hero">
+        <h1>Торт Повод – вкус, который запомнится</h1>
+        <p>Авторские торты и макарон, созданные с любовью и вниманием к деталям.</p>
+        <p>Выбирайте в каталоге или заказывайте индивидуальный дизайн.</p>
+        <a href="{% url 'product_list' %}" class="btn btn-primary">Выбрать десерт</a>
+    </div>
+
+    <div class="row features">
+        <div class="col-md-4">
+            <div class="card">
+                <h3>Уникальные рецепты</h3>
+                <p>Каждый торт и макарон – моя авторская проработанная идея.</p>
+            </div>
         </div>
-        <div class="col-md-6">
-            <p>Привет! Я [Имя Кондитера] — профессиональный кондитер с [X] лет опыта.</p>
-            <p>Я готовлю вкуснейшие торты, пирожные и другие десерты по индивидуальным заказам.</p>
-            <p>Вы можете выбрать десерт в каталоге или заказать что-то уникальное по вашему желанию!</p>
-            <a href="{% url 'product_list' %}" class="btn btn-primary">Перейти в каталог</a>
+        <div class="col-md-4">
+            <div class="card">
+                <h3>Натуральные ингредиенты</h3>
+                <p>Использую только качественные продукты без химии и заменителей.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <h3>Индивидуальный декор</h3>
+                <p>Каждый торт – произведение искусства. Дизайн полностью под ваш вкус и повод.</p>
+            </div>
         </div>
     </div>
+
+    <div class="contact">
+        <h2>Как заказать?</h2>
+        <p>1. Выберите торт или макарон в каталоге.</p>
+        <p>2. Оформите заказ на сайте.</p>
+        <p>3. Я свяжусь с вами для уточнения деталей.</p>
+        <p> Торт из каталога – за 3 дня</p>
+        <p> Доставка на такси или самовывоз</p>
+        <p> <a href="https://vk.com/topt_povod" target="_blank">ВКонтакте</a></p>
+    </div>
+
 </body>
 </html>
